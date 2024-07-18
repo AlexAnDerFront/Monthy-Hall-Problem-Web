@@ -1,0 +1,77 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    display: felx;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 29%;
+    height: 300px;
+    background-color: #f0bc20;
+    color: rgb(0, 0, 0);
+    font-size: 6rem;
+    border-radius: 20%;
+    margin-left: 3%;
+    cursor: pointer;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+button.--active1 {
+    background-image: url(images.jpeg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+button.--active2 {
+    background-image: url(car.jpeg);
+    background-size: cover;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.dialog {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dialog-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+}
+
+.dialogButton {
+    background-color: #888;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 2rem;
+    border-radius: none;
+}
