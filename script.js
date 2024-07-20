@@ -1,6 +1,10 @@
+const id = document.querySelector(".game-id");
+console.log(id);
 let winNumber = Math.floor(Math.random() * 3) + 1;
-let playerNumber = 0;
+let playerNumber1 = 0;
+let playerNumber2 = 0;
 let win = 0;
+let numSwitch = true;
 let lose = 0;
 let gameState = 0;
 let dialog = document.getElementById('dialog1');
@@ -20,41 +24,42 @@ setupDialogClose('dialog2');
 setupDialogClose('dialog3');
 
 openDialogButton1.addEventListener('click', (event) => {
-    playerNumber = 1;
     if (gameState == 0) {
+        playerNumber1 = 1;
         door1();
     } else if (gameState == 1) {
+        playerNumber2 = 1;
         secondChoice();
     }
     dialog.style.display = 'block';
 });
 openDialogButton2.addEventListener('click', (event) => {
-    playerNumber = 2;
     if (gameState == 0) {
+        playerNumber1 = 2;
         door2();
     } else if (gameState == 1) {
+        playerNumber2 = 2;
         secondChoice();
     }
     dialog.style.display = 'block';
 });
 openDialogButton3.addEventListener('click', (event) => {
-    playerNumber = 3;
     if (gameState == 0) {
+        playerNumber1 = 3;
         door3();
     } else if (gameState == 1) {
+        playerNumber2 = 3;
         secondChoice();
     }
     dialog.style.display = 'block';
 });
 
-closeDialogButton.addEventListener('click', () => {
-    dialog.style.display = 'none';
-});
+
 // functions for the doors
 function door1() {
     let door;
     console.log("Win number: " + winNumber)
-    console.log("Selected value: " + playerNumber);
+    console.log("Selected value: " + playerNumber1);
     if (winNumber == 2) {
         door = document.getElementById('door3');
     } else if (winNumber == 3) {
@@ -73,7 +78,7 @@ function door1() {
 function door2() {
     let door;
     console.log("Win number: " + winNumber);
-    console.log("Selected value: " + playerNumber);
+    console.log("Selected value: " + playerNumber1);
     if (winNumber == 1) {
         door = document.getElementById('door3');
     } else if (winNumber == 3) {
@@ -92,7 +97,7 @@ function door2() {
 function door3() {
     let door;
     console.log("Win number: " + winNumber);
-    console.log("Selected value: " + playerNumber);
+    console.log("Selected value: " + playerNumber1);
     if (winNumber === 2) {
         door = document.getElementById('door1');
     } else if (winNumber === 1) {
@@ -111,11 +116,16 @@ function door3() {
 // Win or lose
 function secondChoice() {
     let door;
-    
-    if (playerNumber == winNumber) {
+    if (playerNumber1 == playerNumber2) {
+       numSwitch = false;
+    } else if (playerNumber1 != playerNumber2) {
+        numSwitch = true;
+    }
+    console.log("Switch?" + numSwitch);
+    if (playerNumber2 == winNumber) {
         dialog = document.getElementById('dialog2');
         win++;
-        door = document.getElementById('door' + playerNumber);
+        door = document.getElementById('door' + playerNumber2);
         writeScore();
         door.classList.add('--active2');
         const button1 = document.getElementById('door1');
@@ -137,11 +147,11 @@ function secondChoice() {
             door1.classList.add('--active1');
             door2.classList.add('--active1');
         }
-    } else if (playerNumber != winNumber) {
+    } else if (playerNumber2 != winNumber) {
         lose++;
         dialog = document.getElementById('dialog3');
         writeScore();
-        door = document.getElementById('door' + playerNumber);
+        door = document.getElementById('door' + playerNumber2);
         door.classList.add('--active1');
         door = document.getElementById('door' + winNumber);
         door.classList.add('--active2');
@@ -164,7 +174,15 @@ function restartGame() {
         door.classList.remove('--active2');
     });
     console.log(gameState);
+    fetch('save.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'jsWin=' + encodeURIComponent(win) + '&jsLose=' + encodeURIComponent(lose)
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Response from PHP
+        });
 }
-
-
-

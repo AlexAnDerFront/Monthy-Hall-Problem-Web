@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <title>Monthy Hall Problem</title>
+  <meta name="game-id" class="game-id" content="<?php echo md5(date('Y-m-d HH:ii:ss') . rand(0,100000))  ?>" >
 </head>
 
 <body>
   <h1>Chose the right door to win!</h1>
   <h1 id="wins"></h1>
   <h1 id="loses"></h1>
-
 
   <button id="door1">Door 1</button>
   <button id="door2">Door 2</button>
