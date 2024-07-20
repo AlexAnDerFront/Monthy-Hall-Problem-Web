@@ -23,7 +23,10 @@ setupDialogClose('dialog1');
 setupDialogClose('dialog2');
 setupDialogClose('dialog3');
 
-openDialogButton1.addEventListener('click', (event) => {
+openDialogButton1.addEventListener('click', button1ClickHandler);
+openDialogButton2.addEventListener('click', button2ClickHandler);
+openDialogButton3.addEventListener('click', button3ClickHandler);
+function button1ClickHandler() {
     if (gameState == 0) {
         playerNumber1 = 1;
         door1();
@@ -32,8 +35,8 @@ openDialogButton1.addEventListener('click', (event) => {
         secondChoice();
     }
     dialog.style.display = 'block';
-});
-openDialogButton2.addEventListener('click', (event) => {
+};
+function button2ClickHandler() {
     if (gameState == 0) {
         playerNumber1 = 2;
         door2();
@@ -42,8 +45,8 @@ openDialogButton2.addEventListener('click', (event) => {
         secondChoice();
     }
     dialog.style.display = 'block';
-});
-openDialogButton3.addEventListener('click', (event) => {
+};
+function button3ClickHandler() {
     if (gameState == 0) {
         playerNumber1 = 3;
         door3();
@@ -52,7 +55,7 @@ openDialogButton3.addEventListener('click', (event) => {
         secondChoice();
     }
     dialog.style.display = 'block';
-});
+};
 
 
 // functions for the doors
@@ -62,13 +65,17 @@ function door1() {
     console.log("Selected value: " + playerNumber1);
     if (winNumber == 2) {
         door = document.getElementById('door3');
+        openDialogButton3.removeEventListener('click', button3ClickHandler);
     } else if (winNumber == 3) {
         door = document.getElementById('door2');
+        openDialogButton2.removeEventListener('click', button2ClickHandler);
     } else {
         if (Math.random() * 2 < 1) {
             door = document.getElementById('door2');
+            openDialogButton2.removeEventListener('click', button2ClickHandler);
         } else {
             door = document.getElementById('door3');
+            openDialogButton3.removeEventListener('click', button3ClickHandler);
         }
     }
     door.classList.add('--active1'); // Fügt class "--active" hinzu
@@ -81,13 +88,17 @@ function door2() {
     console.log("Selected value: " + playerNumber1);
     if (winNumber == 1) {
         door = document.getElementById('door3');
+        openDialogButton3.removeEventListener('click', button3ClickHandler);
     } else if (winNumber == 3) {
         door = document.getElementById('door1');
+        openDialogButton1.removeEventListener('click', button1ClickHandler);
     } else {
         if (Math.random() * 2 < 1) {
             door = document.getElementById('door1');
+            openDialogButton1.removeEventListener('click', button1ClickHandler);
         } else {
             door = document.getElementById('door3');
+            openDialogButton3.removeEventListener('click', button3ClickHandler);
         }
     }
     door.classList.add('--active1'); // Fügt class "--active" hinzu
@@ -100,13 +111,17 @@ function door3() {
     console.log("Selected value: " + playerNumber1);
     if (winNumber === 2) {
         door = document.getElementById('door1');
+        openDialogButton1.removeEventListener('click', button1ClickHandler);
     } else if (winNumber === 1) {
         door = document.getElementById('door2');
+        openDialogButton2.removeEventListener('click', button2ClickHandler);
     } else {
         if (Math.random() * 2 < 1) {
             door = document.getElementById('door1');
+            openDialogButton1.removeEventListener('click', button1ClickHandler);
         } else {
             door = document.getElementById('door2');
+            openDialogButton2.removeEventListener('click', button2ClickHandler);
         }
     }
     door.classList.add('--active1'); // Fügt class "--active" hinzu
@@ -117,7 +132,7 @@ function door3() {
 function secondChoice() {
     let door;
     if (playerNumber1 == playerNumber2) {
-       numSwitch = false;
+        numSwitch = false;
     } else if (playerNumber1 != playerNumber2) {
         numSwitch = true;
     }
@@ -169,6 +184,9 @@ function restartGame() {
     gameState = 0;
     const doors = document.querySelectorAll('#door1, #door2, #door3');
     dialog = document.getElementById('dialog1');
+    openDialogButton1.addEventListener('click', button1ClickHandler);
+    openDialogButton2.addEventListener('click', button2ClickHandler);
+    openDialogButton3.addEventListener('click', button3ClickHandler);
     doors.forEach(door => {
         door.classList.remove('--active1');
         door.classList.remove('--active2');
