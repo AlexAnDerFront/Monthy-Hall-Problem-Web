@@ -1,7 +1,7 @@
 const id = document.querySelector(".game-id");
 console.log(id);
 let winNumber = Math.floor(Math.random() * 3) + 1;
-let playerNumber1 = 0;
+let playerNumber1 = 0;  // 
 let playerNumber2 = 0;
 let win = 0;
 let numSwitch = true;
