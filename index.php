@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="goat.jpeg">
   <script defer src="script.js"></script>
   <title>Monthy Hall Problem</title>
   <meta name="game-id" class="game-id" content="<?php echo md5(date('Y-m-d HH:ii:ss') . rand(0,100000))  ?>" >
@@ -36,6 +37,8 @@
       <button class="dialogButton" onclick="restartGame()">restart</button>
     </div>
   </div>
+<br>
+<a href="stats.php">Stats</a>
 </body>
 
 </html>

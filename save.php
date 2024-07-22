@@ -10,9 +10,9 @@ if(isset($_POST['jsWin' ]) && isset($_POST['jsLose'])) {
 echo "jsWin: ". $jsWin. " ";
 echo "jsLose: ". $jsLose. " ";
 
-$myfile = fopen("total-score.txt", "a");
-fwrite($myfile, $jsWin . "-" . $jsLose . PHP_EOL);
-fclose($myfile); 
+$totalGames = file_get_contents('total-score.txt');
+$newTotal = $totalGames + 1;
+file_put_contents('total-games.txt', $newTotal);
 
 // connect to database
 $db = new SQLite3('mysqlitedb.db');

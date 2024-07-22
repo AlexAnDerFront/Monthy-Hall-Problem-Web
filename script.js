@@ -4,8 +4,8 @@ let winNumber = Math.floor(Math.random() * 3) + 1;
 let playerNumber1 = 0;  
 let playerNumber2 = 0;
 let win = 0;
-let numSwitch = 1; // 1=true, 0=false
 let lose = 0;
+let numSwitch = 1; // 1=true, 0=false
 let gameState = 0;
 let dialog = document.getElementById('dialog1');
 // dialog handeling
@@ -198,7 +198,8 @@ function restartGame() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'id='  +encodeURIComponent(id) + '&jsWin=' + encodeURIComponent(win) + '&jsLose=' + encodeURIComponent(lose) + '&jsNumSwitch=' + encodeURIComponent(numSwitch), 
+        body: 'id='  +encodeURIComponent(id) + '&jsWin=' + encodeURIComponent(win)
+         + '&jsLose=' + encodeURIComponent(lose) + '&jsNumSwitch=' + encodeURIComponent(numSwitch),   
     })
         .then(response => response.text())
         .then(data => {
