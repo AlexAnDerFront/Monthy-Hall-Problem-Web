@@ -1,4 +1,4 @@
-const id = document.querySelector(".game-id");
+const id = document.head.querySelector(".game-id").content;
 console.log(id);
 let winNumber = Math.floor(Math.random() * 3) + 1;
 let playerNumber1 = 0;  
@@ -197,7 +197,7 @@ function restartGame() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'id'=+encodeURIComponent(id) + 'jsWin=' + encodeURIComponent(win) + '&jsLose=' + encodeURIComponent(lose) + '&jsNumSwitch=' + encodeURIComponent(numSwitch), 
+        body: 'id='  +encodeURIComponent(id) + '&jsWin=' + encodeURIComponent(win) + '&jsLose=' + encodeURIComponent(lose) + '&jsNumSwitch=' + encodeURIComponent(numSwitch), 
     })
         .then(response => response.text())
         .then(data => {
