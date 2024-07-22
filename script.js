@@ -192,6 +192,7 @@ function restartGame() {
         door.classList.remove('--active2');
     });
     console.log(gameState);
+    //create HTTP request to PHP
     fetch('save.php', {
         method: 'POST',
         headers: {
