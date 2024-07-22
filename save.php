@@ -18,10 +18,7 @@ fclose($myfile);
 $db = new SQLite3('mysqlitedb.db');
 
 $db->exec('CREATE TABLE gameData (id TEXT, win INT, lose INT, numSwitch BOOLEAN)'); // erstellt Tabelle
-$db->exec("INSERT INTO gameData (id) VALUES ('" . $id . "')");
-$db->exec("INSERT INTO gameData (win) VALUES ('" . $jsWin . "')");
-$db->exec("INSERT INTO gameData (lose) VALUES ('" . $jsLose . "')");
-$db->exec("INSERT INTO gameData (numSwitch) VALUES ('" . $jsNumSwitch . "')");
+$db->exec("INSERT INTO gameData (id, win, lose, numSwitch) VALUES ('$id', '$jsWin', '$jsLose', '$jsNumSwitch')");
 
 $result = $db->query('SELECT * FROM gameData');
 var_dump($result->fetchArray());
