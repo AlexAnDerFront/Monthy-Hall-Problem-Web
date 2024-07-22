@@ -4,7 +4,7 @@ let winNumber = Math.floor(Math.random() * 3) + 1;
 let playerNumber1 = 0;  
 let playerNumber2 = 0;
 let win = 0;
-let numSwitch = true;
+let numSwitch = 1; // 1=true, 0=false
 let lose = 0;
 let gameState = 0;
 let dialog = document.getElementById('dialog1');
@@ -132,9 +132,9 @@ function door3() {
 function secondChoice() {
     let door;
     if (playerNumber1 == playerNumber2) {
-        numSwitch = false;
+        numSwitch = 0;
     } else if (playerNumber1 != playerNumber2) {
-        numSwitch = true;
+        numSwitch = 1;
     }
     console.log("Switch?" + numSwitch);
     if (playerNumber2 == winNumber) {

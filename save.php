@@ -17,7 +17,7 @@ fclose($myfile);
 // connect to database
 $db = new SQLite3('mysqlitedb.db');
 
-$db->exec('CREATE TABLE gameData (id TEXT, win INT, lose INT, numSwitch BOOLEAN)'); // erstellt Tabelle
+$db->exec('CREATE TABLE gameData (id TEXT, win INT, lose INT, numSwitch INT)'); // erstellt Tabelle
 $db->exec("INSERT INTO gameData (id, win, lose, numSwitch) VALUES ('$id', '$jsWin', '$jsLose', '$jsNumSwitch')");
 
 $result = $db->query('SELECT * FROM gameData');
