@@ -1,3 +1,4 @@
+
 const id = document.head.querySelector(".game-id").content;
 console.log(id);
 let winNumber = Math.floor(Math.random() * 3) + 1;
@@ -5,8 +6,14 @@ let playerNumber1 = 0;
 let playerNumber2 = 0;
 let win = 0;
 let lose = 0;
+let wins = 0;
+let loses = 0;
 let numSwitch = 1; // 1=true, 0=false
 let gameState = 0;
+let WS = 0;
+let LS = 0;
+let WnS = 0;
+let LnS = 0;
 let dialog = document.getElementById('dialog1');
 // dialog handeling
 const openDialogButton1 = document.getElementById('door1');
@@ -139,7 +146,8 @@ function secondChoice() {
     console.log("Switch?" + numSwitch);
     if (playerNumber2 == winNumber) {
         dialog = document.getElementById('dialog2');
-        win++;
+        wins++;
+        win = 1;
         door = document.getElementById('door' + playerNumber2);
         writeScore();
         door.classList.add('--active2');
@@ -163,7 +171,8 @@ function secondChoice() {
             door2.classList.add('--active1');
         }
     } else if (playerNumber2 != winNumber) {
-        lose++;
+        loses++;
+        lose = 1;
         dialog = document.getElementById('dialog3');
         writeScore();
         door = document.getElementById('door' + playerNumber2);
@@ -174,14 +183,25 @@ function secondChoice() {
 }
 
 function writeScore() {
-    document.getElementById('wins').innerHTML = "Wins: " + win;
-    document.getElementById('loses').innerHTML = "Loses: " + lose;
+    if (numSwitch == 1 && win == 1) {
+        WS = 1;
+    } else if (numSwitch == 1 && lose == 1) {
+        LS = 1;
+    } else if (numSwitch == 0 && win == 1) {
+        WnS = 1;
+    } else if (numSwitch == 0 && lose == 1) {
+        LnS = 1;
+    }
+    console.log(WS, LS, WnS, LnS);
+    document.getElementById('wins').innerHTML = "Wins: " + wins;
+    document.getElementById('loses').innerHTML = "Loses: " + loses;
 }
-
 function restartGame() {
     playerNumber = 0;
     winNumber = Math.floor(Math.random() * 3) + 1;
     gameState = 0;
+    win = 0;
+    lose = 0;
     const doors = document.querySelectorAll('#door1, #door2, #door3');
     dialog = document.getElementById('dialog1');
     openDialogButton1.addEventListener('click', button1ClickHandler);
@@ -198,11 +218,38 @@ function restartGame() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'id='  +encodeURIComponent(id) + '&jsWin=' + encodeURIComponent(win)
-         + '&jsLose=' + encodeURIComponent(lose) + '&jsNumSwitch=' + encodeURIComponent(numSwitch),   
+        body: 'id='  +encodeURIComponent(id) + '&jsWisn=' + encodeURIComponent(wins)
+         + '&jsLoses=' + encodeURIComponent(loses) + '&jsNumSwitch=' + encodeURIComponent(numSwitch)
+         + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS) + '&jsWnS=' 
+         + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),   
     })
         .then(response => response.text())
         .then(data => {
             console.log(data); // Response from PHP
         });
+        WS = 0;
+        LS = 0;
+        WnS = 0;
+        LnS = 0;
 }
+// chart.js
+const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Win Switch', 'Lose Switch', 'Win No Switch', 'Lose No Switch'],
+      datasets: [{
+        label: 'Distribution of wins and loses',
+        data: [12, 19, 3, 5],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
