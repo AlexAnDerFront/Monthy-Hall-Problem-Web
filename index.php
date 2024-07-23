@@ -39,10 +39,9 @@
     </div>
   </div>
 <br>
-<a href="stats.php">Stats</a>
-<div>
-  <canvas id="myChart"></canvas>
-</div>
+<a href="stats1.php" >Distribution of Games Stats</a>
+<br>
+<a href="stats2.php" >Winrates</a>
 
 </body>
 

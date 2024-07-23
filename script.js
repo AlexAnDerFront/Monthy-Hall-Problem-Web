@@ -2,7 +2,7 @@
 const id = document.head.querySelector(".game-id").content;
 console.log(id);
 let winNumber = Math.floor(Math.random() * 3) + 1;
-let playerNumber1 = 0;  
+let playerNumber1 = 0;
 let playerNumber2 = 0;
 let win = 0;
 let lose = 0;
@@ -192,7 +192,7 @@ function writeScore() {
     } else if (numSwitch == 0 && lose == 1) {
         LnS = 1;
     }
-    console.log( WS, LS, WnS, LnS);
+    console.log(WS, LS, WnS, LnS);
     document.getElementById('wins').innerHTML = "Wins: " + wins;
     document.getElementById('loses').innerHTML = "Loses: " + loses;
 }
@@ -212,7 +212,7 @@ function restartGame() {
         door.classList.remove('--active2');
     });
     console.log(gameState);
-    console.log("id " + id,"wins " + wins,"loses " + loses,"numSwitch " + numSwitch,"WS " + WS,"LS " + LS,"WnS " + WnS,"LnS " + LnS);
+    console.log("id " + id, "wins " + wins, "loses " + loses, "numSwitch " + numSwitch, "WS " + WS, "LS " + LS, "WnS " + WnS, "LnS " + LnS);
     console.log(wins)
     //create HTTP request to PHP
     fetch('save.php', {
@@ -220,38 +220,99 @@ function restartGame() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'id='  +encodeURIComponent(id) + '&jsWins=' + encodeURIComponent(wins)
-         + '&jsLoses=' + encodeURIComponent(loses) + '&jsNumSwitch=' + encodeURIComponent(numSwitch)
-         + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS) 
-         + '&jsWnS='  + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),   
+        body: 'id=' + encodeURIComponent(id) + '&jsWins=' + encodeURIComponent(wins)
+            + '&jsLoses=' + encodeURIComponent(loses) + '&jsNumSwitch=' + encodeURIComponent(numSwitch)
+            + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS)
+            + '&jsWnS=' + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),
     })
         .then(response => response.text())
         .then(data => {
             console.log(data); // Response from PHP
         });
-        WS = 0;
-        LS = 0;
-        WnS = 0;
-        LnS = 0;
+    WS = 0;
+    LS = 0;
+    WnS = 0;
+    LnS = 0;
+    fetchGameStats()
 }
-// chart.js
-const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Win Switch', 'Lose Switch', 'Win No Switch', 'Lose No Switch'],
-      datasets: [{
-        label: 'Distribution of wins and loses',
-        data: [12, 19, 3, 5],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+
+
+async function fetchGameStats() {
+    try {
+        // Fetch data from the PHP script
+        const response = await fetch('data.json');
+        console.log(await response);
+        // Check if response is okay
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-      }
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Assign the data to variables
+        const totalGames = data.total_games;
+        const winsSwitch = data.WS;
+        const losesSwitch = data.LS;
+        const winsNoSwitch = data.WnS;
+        const losesNoSwitch = data.LnS;
+        const winrateSwitch = data.WinrateSwitch;
+        const winrateNoSwitch = data.WinratenoSwitch;
+
+        // Log or use the variables as needed
+        console.log('Total Games:', totalGames);
+        console.log('Wins with Switch:', winsSwitch);
+        console.log('Loses with Switch:', losesSwitch);
+        console.log('Wins without Switch:', winsNoSwitch);
+        console.log('Loses without Switch:', losesNoSwitch);
+        console.log('Winrate with Switch:', winrateSwitch);
+        console.log('Winrate without Switch:', winrateNoSwitch);
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Win Switch', 'Lose Switch', 'Win No Switch', 'Lose No Switch'],
+                datasets: [{
+                    label: 'Distribution of wins and loses',
+                    data: [winsSwitch, losesSwitch, winsNoSwitch, losesNoSwitch],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctx2 = document.getElementById('myChart2');
+
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Winrate Switch', 'Winrate No Switch'],
+                datasets: [{
+                    label: 'Winrates for each strategy',
+                    data: [winrateSwitch, winrateNoSwitch],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        // You can now use these variables in your application logic
+    } catch (error) {
+        console.error('Error fetching game stats:', error);
     }
-  });
+}
+
