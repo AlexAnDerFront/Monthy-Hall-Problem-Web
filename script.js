@@ -192,7 +192,7 @@ function writeScore() {
     } else if (numSwitch == 0 && lose == 1) {
         LnS = 1;
     }
-    console.log(WS, LS, WnS, LnS);
+    console.log( WS, LS, WnS, LnS);
     document.getElementById('wins').innerHTML = "Wins: " + wins;
     document.getElementById('loses').innerHTML = "Loses: " + loses;
 }
@@ -212,16 +212,18 @@ function restartGame() {
         door.classList.remove('--active2');
     });
     console.log(gameState);
+    console.log("id " + id,"wins " + wins,"loses " + loses,"numSwitch " + numSwitch,"WS " + WS,"LS " + LS,"WnS " + WnS,"LnS " + LnS);
+    console.log(wins)
     //create HTTP request to PHP
     fetch('save.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: 'id='  +encodeURIComponent(id) + '&jsWisn=' + encodeURIComponent(wins)
+        body: 'id='  +encodeURIComponent(id) + '&jsWins=' + encodeURIComponent(wins)
          + '&jsLoses=' + encodeURIComponent(loses) + '&jsNumSwitch=' + encodeURIComponent(numSwitch)
-         + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS) + '&jsWnS=' 
-         + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),   
+         + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS) 
+         + '&jsWnS='  + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),   
     })
         .then(response => response.text())
         .then(data => {
