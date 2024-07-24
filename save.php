@@ -1,4 +1,10 @@
 <?php
+
+function consoleLog($text) {
+  file_put_contents('/dev/stdout', $text . PHP_EOL);
+}
+
+
 // use http request to POST Js Data to PHP variables
 if(isset($_POST['jsWins' ]) && isset($_POST['jsLoses'])) {
   $id = $_POST['id'];
@@ -10,10 +16,11 @@ if(isset($_POST['jsWins' ]) && isset($_POST['jsLoses'])) {
   $jsWnS = $_POST['jsWnS'];
   $jsLnS = $_POST['jsLnS'];
   }
-echo $jsWS;
-echo $jsLS;
-echo $jsWnS;
-echo $jsLnS;
+
+  consoleLog($jsWS);
+  consoleLog($jsLS);
+  consoleLog($jsWnS);
+  consoleLog($jsLnS);
 /* $totalGames = file_get_contents('total-games.txt');
 $newTotal = $totalGames + 1;
 file_put_contents('total-games.txt', $newTotal); */
@@ -63,9 +70,9 @@ try {
     $filePath = 'data.json';
 
     if (file_put_contents($filePath, $jsonData)) {
-      echo "JSON file created successfully";
+        consoleLog("JSON file created successfully");
   } else {
-      echo "Error creating JSON file";
+    consoleLog("Error creating JSON file");
   }
 
 } catch (PDOException $e) {

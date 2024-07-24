@@ -15,6 +15,7 @@ let LS = 0;
 let WnS = 0;
 let LnS = 0;
 let dialog = document.getElementById('dialog1');
+
 // dialog handeling
 const openDialogButton1 = document.getElementById('door1');
 const openDialogButton2 = document.getElementById('door2');
