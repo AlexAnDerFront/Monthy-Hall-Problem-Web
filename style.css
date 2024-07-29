@@ -6,12 +6,12 @@ body {
 }
 
 button {
-    display: flex;
-    flex-direction: row;
+    display: flexbox;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 29%;
-    height: 7rem;
+    height: 20rem;
     background-color: #f0bc20;
     color: rgb(0, 0, 0);
     font-size: 6rem;
