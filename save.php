@@ -21,9 +21,6 @@ if(isset($_POST['jsWins' ]) && isset($_POST['jsLoses'])) {
   consoleLog($jsLS);
   consoleLog($jsWnS);
   consoleLog($jsLnS);
-/* $totalGames = file_get_contents('total-games.txt');
-$newTotal = $totalGames + 1;
-file_put_contents('total-games.txt', $newTotal); */
 
 // write to databse
 $db1 = new SQLite3('singleGames.db');
