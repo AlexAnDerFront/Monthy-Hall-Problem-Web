@@ -1,3 +1,4 @@
 /.vite
 /mysqlitedb.db
 /total-games.txt
+/node_modules
