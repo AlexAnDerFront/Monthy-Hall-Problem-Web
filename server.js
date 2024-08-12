@@ -11,9 +11,9 @@ Bun.serve({                                      // creates a Bun server
     if (url.pathname == '/' || url.pathname == '/index.php') {              // if the request is for the index.php file
       const file = await readFile('./index.php', { encoding: 'utf-8' });
       const hasher = new Bun.CryptoHasher("md5");
-      hasher.update((new Date().getTime + Math.ceil(Math.random() * 100000)).toString());  // hashher is asignted a random integer like in index.php
+      hasher.update((new Date().getTime + Math.ceil(Math.random() * 100000)).toString());  // hasher is asignted a random integer like in index.php
       hasher.digest("hex");
-      return new Response(file.replace("<?php echo md5(date('Y-m-d HH:ii:ss') . rand(0,100000))  ?>", hasher), {                                 // new response object is returned with content type text/html        
+      return new Response(file.replace("<?php echo md5(date('Y-m-d HH:ii:ss') . rand(0,100000))  ?>", hasher), {  // new response object is returned with content type text/html        
         headers: {
           'content-type': 'text/html'
         }
