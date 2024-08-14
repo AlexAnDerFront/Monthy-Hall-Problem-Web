@@ -1,4 +1,5 @@
 import { readFile, stat } from 'fs/promises';   // imports fs module "read file" for reading files and "stat" for for gettinmg stats asynchronously
+import sqlite3 from 'sqlite3';
 
 Bun.serve({                                      // creates a Bun server
   
