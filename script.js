@@ -230,6 +230,20 @@ function restartGame() {
         .then(data => {
             console.log(data); // Response from PHP
         });
+    fetch('server.js', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'id=' + encodeURIComponent(id) + '&jsWins=' + encodeURIComponent(wins)
+            + '&jsLoses=' + encodeURIComponent(loses) + '&jsNumSwitch=' + encodeURIComponent(numSwitch)
+            + '&jsWS=' + encodeURIComponent(WS) + '&jsLS=' + encodeURIComponent(LS)
+            + '&jsWnS=' + encodeURIComponent(WnS) + '&jsLnS=' + encodeURIComponent(LnS),
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Response from Node.js
+        });
     WS = 0;
     LS = 0;
     WnS = 0;

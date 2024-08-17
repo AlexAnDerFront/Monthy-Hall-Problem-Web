@@ -1,5 +1,6 @@
 import { readFile, stat } from 'fs/promises';   // imports fs module "read file" for reading files and "stat" for for gettinmg stats asynchronously
-import sqlite3 from 'sqlite3';
+/* import sqlite3 from 'sqlite3';
+import http from 'http'; */
 
 Bun.serve({                                      // creates a Bun server
   
@@ -8,6 +9,25 @@ Bun.serve({                                      // creates a Bun server
     const url = new URL(request.url);            // creates a url object from the request
 
     console.log(`${ request.method } ${ url.pathname }`); // logs the request
+// saves data from http request in variables in server.js
+    if (request.method === 'POST' && url.pathname === '/server.js') {
+      const formData = await request.formData();
+      
+      const id = formData.get('id');
+      const jsWins = formData.get('jsWins');
+      const jsLoses = formData.get('jsLoses');
+      const jsNumSwitch = formData.get('jsNumSwitch');
+      const jsWS = formData.get('jsWS');
+      const jsLS = formData.get('jsLS');
+      const jsWnS = formData.get('jsWnS');
+      const jsLnS = formData.get('jsLnS');
+
+      console.log({ id, jsWins, jsLoses, jsNumSwitch, jsWS, jsLS, jsWnS, jsLnS });
+
+      return new Response("Data received and processed", {
+        headers: { 'Content-Type': 'text/plain' }
+      });
+    }
 
     if (url.pathname == '/' || url.pathname == '/index.php') {              // if the request is for the index.php file
       const file = await readFile('./index.php', { encoding: 'utf-8' });
@@ -36,7 +56,7 @@ Bun.serve({                                      // creates a Bun server
         }
       });
     }
-    
+
     return new Response("Hello, World!");                           // default response
   }
 })
