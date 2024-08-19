@@ -31,7 +31,7 @@ $db1->exec("INSERT INTO gameData (id, wins, loses, numSwitch, WS, LS, WnS, LnS) 
 $databasePath = 'singleGames.db';
 
 try {
-    // Create (connect to) SQLite database in the specified path
+    // Create & connect to SQLite database in the specified path
     $pdo = new PDO('sqlite:' . $databasePath);
 
     // Set error mode to exceptions
